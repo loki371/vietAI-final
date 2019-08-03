@@ -4,6 +4,7 @@ from utils.evaluate import evaluate
 
 from torch.utils.data import DataLoader
 from trainer import train_batch
+from utils.load_configfiles import load_configfiles
 
 import torch
 
@@ -35,7 +36,7 @@ dict_config = (
 
 
 if __name__ == '__main__':
-    dict_config = {}
+    dict_config = load_configfiles()
 
 
     transform_augment = None
