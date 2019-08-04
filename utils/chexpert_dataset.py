@@ -56,9 +56,9 @@ class CheXpert_Dataset():
         for r in data.iterrows():
             self.image_paths.append(folder + r[1]['Path'])
             if mode is 'train':
-                print("123")
+                print("before bug 2")
                 main_label = [r[1][c] for c in class_list]
-                print("456")
+                print("after bug 2")
                 # Handle uncertain
                 mask = np.zeros(len(CLASS_LIST))
                 for i in range(len(main_label)):
