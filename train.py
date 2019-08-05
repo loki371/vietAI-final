@@ -43,6 +43,11 @@ if __name__ == '__main__':
     dict_config['optimizer'] = _choose_optim(dict_config)
     dict_config['criteria'] = _choose_criterion(dict_config)
 
+    print('model', dict_config['model'])
+    print('optimizer', dict_config['optimizer'])
+    print('criteria', dict_config['criteria'])
+    
+    # augmentation
     transform_augment = None
 
     print("---------------create Dataset/Dataloader-------------------------")
