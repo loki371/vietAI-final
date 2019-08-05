@@ -32,9 +32,9 @@ def _choose_optim(dict_config):
         exit()
 
 
-    if dict_config['optim_name'] is 'Adam':
+    if dict_config['optim_name'] == 'Adam':
         dict_config['optimizer'] = Adam(dict_config['model'].parameters(), dict_config['lr'])
-    elif dict_config['optim_name'] is 'SGD':
+    elif dict_config['optim_name'] == 'SGD':
         dict_config['optimizer'] = SGD(dict_config['model'].parameters(), dict_config['lr'])
 
     return dict_config
