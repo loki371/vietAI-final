@@ -15,8 +15,8 @@ def _choose_model(dict_config):
         print(f'Only support {support_list}')
         exit()
 
+    print(dict_config['model_name'])
     if dict_config['model_name'] is 'vgg16':
-        print("model == vgg16")
         dict_config['model'] = VGG16(len(dict_config['class_list']), pretrain=dict_config['pretrain'])
     elif dict_config['model_name'] is 'resnet50':
         dict_config['model'] = ResNet50(len(dict_config['class_list']), pretrain=dict_config['pretrain'])
