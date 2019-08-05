@@ -41,11 +41,13 @@ if __name__ == '__main__':
 
     transform_augment = None
 
+    print(dict_config)
 
+    print("before bug 1")
     trainDataset = CheXpert_Dataset(dict_config['train_folder'], dict_config['train_csv'], mode='train', greyscale=dict_config['greyscale'],
                                     handle_uncertain=dict_config['handle_uncertain'], transform=transform_augment, 
                                     class_list=dict_config['class_list'], size=dict_config['img_size'])
-
+    print("after bug 1")
     trainDataloader = DataLoader(trainDataset, batch_size=dict_config['batch_size'], shuffle=dict_config['shuffle'],
                                  num_workers=dict_config['num_workers'])
 
