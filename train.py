@@ -38,10 +38,7 @@ dict_config = (
 if __name__ == '__main__':
     dict_config = load_configfiles()
 
-
     transform_augment = None
-
-    print(dict_config)
 
     print("before bug 1")
     trainDataset = CheXpert_Dataset(dict_config['train_folder'], dict_config['train_csv'], mode='train', greyscale=dict_config['greyscale'],
