@@ -39,14 +39,10 @@ dict_config = (
 if __name__ == '__main__':
     print("---------------create dict_config------------------")
     dict_config = load_configfiles()
-    dict_config['model'] = _choose_model(dict_config)
-    dict_config['optimizer'] = _choose_optim(dict_config)
-    dict_config['criteria'] = _choose_criterion(dict_config)
+    dict_config = _choose_model(dict_config)
+    dict_config = _choose_optim(dict_config)
+    dict_config = _choose_criterion(dict_config)
 
-    print('model', dict_config['model'])
-    print('optimizer', dict_config['optimizer'])
-    print('criteria', dict_config['criteria'])
-    
     # augmentation
     transform_augment = None
 
