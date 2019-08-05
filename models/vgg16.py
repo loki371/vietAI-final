@@ -6,7 +6,7 @@ class VGG16(_BaseModel):
     def __init__(self, nClass, pretrain=True):
         super(VGG16, self).__init__(nClass, pretrain)
         original_mod = vgg16(pretrain)
-        self.encoder = nn.Sequential([original_mod.features(), original_mod.avgpool()])
+        self.encoder = nn.Sequential([*original_mod.features, *original_mod.avgpool])
         
         self.classify = nn.Sequential(
             nn.Linear(25088, 4096),
