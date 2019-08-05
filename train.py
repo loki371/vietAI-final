@@ -29,15 +29,14 @@ dict_config = (
     'train_pfeq',   #Print frequent for train
     'val_pfeq',     #Print frequent for val
 
-
     'pretrain'
 )
 
-
+PATH_CONFIG_FILE = './configfiles/template_config.ini'
 
 if __name__ == '__main__':
     print("---------------load dict_config----------------------------------")
-    dict_config = load_configfile(dict_config, './configfiles/template_config.ini')
+    dict_config = load_configfile(dict_config, PATH_CONFIG_FILE)
     dict_config = _choose_model(dict_config)
     dict_config = _choose_optim(dict_config)
     dict_config = _choose_criterion(dict_config)
