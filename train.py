@@ -1,5 +1,5 @@
 from utils import CheXpert_Dataset
-from utils.metric import multi_class_F1
+from utils.metric import multi_class_F1, multi_label_auroc
 from utils.evaluate import evaluate
 
 from torch.utils.data import DataLoader
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     dict_config = _choose_model(dict_config)
     dict_config = _choose_optim(dict_config)
     dict_config = _choose_criterion(dict_config)
-    
+
     model = dict_config['model']
     # augmentation
     transform_augment = None
