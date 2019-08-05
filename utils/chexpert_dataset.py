@@ -61,7 +61,7 @@ class CheXpert_Dataset():
                 mask = np.zeros(len(CLASS_LIST))
                 for i in range(len(main_label)):
                     if main_label[i] == -1:
-                        main_label[i], mask[i] = self.handle_uncertain(handle_uncertain[i])
+                        main_label[i], mask[i] = self.handle_uncertain(handle_uncertain)
                         
                 ex_label = [r[1][c] for c in r[1].keys() if c not in class_list]
 
