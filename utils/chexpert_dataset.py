@@ -58,9 +58,7 @@ class CheXpert_Dataset():
             if mode is 'train':
                 print("before bug 2")
                 for c in class_list:
-                    print(r[1])
                     print("c = ", c)
-                    print(r[1][c])
                 main_label = [r[1][c] for c in class_list]
                 print("after bug 2")
                 # Handle uncertain

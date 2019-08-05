@@ -37,6 +37,8 @@ dict_config = (
 
 if __name__ == '__main__':
     dict_config = load_configfiles()
+    for c in dict_config:
+        print("c = ", c)
 
     transform_augment = None
 
