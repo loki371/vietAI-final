@@ -4,8 +4,7 @@ from utils.evaluate import evaluate
 
 from torch.utils.data import DataLoader
 from trainer import train_batch
-from utils.load_configfiles import load_configfiles
-from utils.load_config import _choose_model, _choose_optim, _choose_criterion
+from utils.load_config import _choose_model, _choose_optim, _choose_criterion, load_configfile
 
 import torch
 
@@ -37,8 +36,8 @@ dict_config = (
 
 
 if __name__ == '__main__':
-    print("---------------create dict_config------------------")
-    dict_config = load_configfiles()
+    print("---------------load dict_config----------------------------------")
+    dict_config = load_configfile(dict_config, './configfiles/template_config.ini')
     dict_config = _choose_model(dict_config)
     dict_config = _choose_optim(dict_config)
     dict_config = _choose_criterion(dict_config)
@@ -86,8 +85,6 @@ if __name__ == '__main__':
             torch.save(model.state_dict(), dict_config['checkpoint_path'])
         
         val_loss, val_F1  = evaluate(model, valDataloader, criterion, None, dict_config['val_pfeq'])
-
-
 
         if best_F1_score < val_F1:            
             print(f'Updated best F1 from {best_F1_score} to {val_F1}')
