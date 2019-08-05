@@ -52,8 +52,6 @@ class CheXpert_Dataset():
         self.labels = [] #List of tuple (Main label, Extra label)
         self.image_paths = []
 
-        print(handle_uncertain[0])
-
         # Load data
         for r in data.iterrows():
             self.image_paths.append(folder + r[1]['Path'])
