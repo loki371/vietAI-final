@@ -26,7 +26,6 @@ def is_none(s):
     return False
 
 def load_configfiles():
-    print("---------------loading file template_config.ini------------------")
     config = configparser.ConfigParser()
     config.read('./configfiles/template_config.ini')
     configList = {}
@@ -58,5 +57,3 @@ def load_configfiles():
         print(element, "=", configList[element], "- type =", type(configList[element]))
     
     return configList
-
-load_configfiles()

@@ -5,6 +5,7 @@ from utils.evaluate import evaluate
 from torch.utils.data import DataLoader
 from trainer import train_batch
 from utils.load_configfiles import load_configfiles
+from utils.load_config import _choose_model, _choose_optim, _choose_criterion
 
 import torch
 
@@ -36,16 +37,19 @@ dict_config = (
 
 
 if __name__ == '__main__':
+    print("---------------create dict_config------------------")
     dict_config = load_configfiles()
-    print(type(dict_config['class_list']))
+    dict_config['model'] = _choose_model(dict_config)
+    dict_config['optimizer'] = _choose_optim(dict_config)
+    dict_config['criteria'] = _choose_criterion(dict_config)
 
     transform_augment = None
 
-    print("before bug 1")
+    print("---------------create Dataset/Dataloader-------------------------")
     trainDataset = CheXpert_Dataset(dict_config['train_folder'], dict_config['train_csv'], mode='train', greyscale=dict_config['greyscale'],
                                     handle_uncertain=dict_config['handle_uncertain'], transform=transform_augment, 
                                     class_list=dict_config['class_list'], size=dict_config['img_size'])
-    print("after bug 1")
+
     trainDataloader = DataLoader(trainDataset, batch_size=dict_config['batch_size'], shuffle=dict_config['shuffle'],
                                  num_workers=dict_config['num_workers'])
 
@@ -55,8 +59,7 @@ if __name__ == '__main__':
 
     valDataloader = DataLoader(valDataset, batch_size=32, shuffle=False, num_workers=dict_config['num_workers'])
 
-
-
+    print("---------------training------------------------------------------")
     model = dict_config['model']
     optimizer = dict_config['optimizer']
     criterion = dict_config['criterion']

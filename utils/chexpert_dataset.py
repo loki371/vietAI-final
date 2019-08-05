@@ -51,7 +51,9 @@ class CheXpert_Dataset():
         data = pd.read_csv(csv_file)
         self.labels = [] #List of tuple (Main label, Extra label)
         self.image_paths = []
-        
+
+        print(handle_uncertain == 'ignore')
+
         # Load data
         for r in data.iterrows():
             self.image_paths.append(folder + r[1]['Path'])
@@ -87,8 +89,8 @@ class CheXpert_Dataset():
         elif way is 'one':
             return 1, 1
         else:
-            print('[WARNING] UNDEFINED WAY TO HANDLE UNCERTAIN DATA')
-            print('RETURN LABEL=0, MASK=0')
+            #print('[WARNING] UNDEFINED WAY TO HANDLE UNCERTAIN DATA')
+            #print('RETURN LABEL=0, MASK=0')
             return 0, 0
                             
             
