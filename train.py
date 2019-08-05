@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     best_F1_score = 0
     best_val_loss = 10000
-    for e in range(dict_config['nEpochs']):
+    for e in range(dict_config['nepochs']):
         train_iter = iter(trainDataloader)
         eLoss = 0
         emetric_value = {'F1':0}

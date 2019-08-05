@@ -52,7 +52,7 @@ class CheXpert_Dataset():
         self.labels = [] #List of tuple (Main label, Extra label)
         self.image_paths = []
 
-        print(handle_uncertain == 'ignore')
+        print(handle_uncertain)
 
         # Load data
         for r in data.iterrows():
