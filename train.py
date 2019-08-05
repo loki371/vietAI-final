@@ -41,7 +41,8 @@ if __name__ == '__main__':
     dict_config = _choose_model(dict_config)
     dict_config = _choose_optim(dict_config)
     dict_config = _choose_criterion(dict_config)
-
+    
+    model = dict_config['model']
     # augmentation
     transform_augment = None
 
