@@ -37,7 +37,7 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
     loss.sum().backward()
     optimizer.step()
 
-    return loss.item(), metric_values
+    return loss.sum().item(), metric_values
 
 
 def train_batch_temporal(model, optimizer, criterion, train_iter, dict_config, metric_funcs=None):
