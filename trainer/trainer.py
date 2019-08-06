@@ -34,7 +34,7 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
             metric_values.append(metric_func(y_pred, labels))
 
     optimizer.zero_grad()
-    loss.backward()
+    loss.sum().backward()
     optimizer.step()
 
     return loss.item(), metric_values
