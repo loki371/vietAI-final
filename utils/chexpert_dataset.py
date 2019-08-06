@@ -123,7 +123,7 @@ class CheXpert_Dataset():
         
         x = self.transform(x)
         
-        y = torch.LongTensor(self.labels[index][0])
+        y = torch.FloatTensor(self.labels[index][0])
         
         masks = torch.FloatTensor(self.labels[index][2])
         return x, y, self.labels[index][1], masks  
