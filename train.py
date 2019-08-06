@@ -73,7 +73,7 @@ if __name__ == '__main__':
             bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_class_F1])
 
             eLoss += bLoss 
-
+            print(type(bMetrics[0]))
             emetric_value['F1'] += bMetrics[0]
 
             if b % dict_config['train_pfeq'] == 1:
