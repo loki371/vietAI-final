@@ -126,10 +126,6 @@ class CheXpert_Dataset():
         y = torch.FloatTensor(self.labels[index][0])
         
         masks = torch.FloatTensor(self.labels[index][2])
-        
-        print("labels[0] = ", y)
-        print("labels[1] = ", self.labels[index][1])
-        print("masks     = ", masks)
 
         return x, y, self.labels[index][1], masks  
     
