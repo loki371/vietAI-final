@@ -7,6 +7,7 @@ from trainer import train_batch
 from utils.load_config import _choose_model, _choose_optim, _choose_criterion, load_configfile
 
 import torch
+import argparse
 
 dict_config = (
     'train_folder', #
@@ -36,13 +37,21 @@ dict_config = (
 
 
 if __name__ == '__main__':
+    # Get command line argument
+    parser = argparse.ArgumentParser(description='Training script for CheXpert')
+    configpath = './configfiles/template_config.ini'    
+    parser.add_argument('--config-path', '-c', help='Path to config path', default=configpath)
+
+    args = parser.parse_args()
+    configpath = args.config_path
+
+    # Actual code
     print("---------------load dict_config----------------------------------")
-    dict_config = load_configfile(dict_config, './configfiles/template_config.ini')
+    dict_config = load_configfile(dict_config, configpath)
     dict_config = _choose_model(dict_config)
     dict_config = _choose_optim(dict_config)
     dict_config = _choose_criterion(dict_config)
     
-    model = dict_config['model']
     # augmentation
     transform_augment = None
 

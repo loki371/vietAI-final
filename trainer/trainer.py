@@ -1,4 +1,4 @@
-
+import torch
 
 
 def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=None):
@@ -27,7 +27,8 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
     y_pred = model(imgs)
 
     loss = criterion(y_pred, labels) * mask
-
+    loss = torch.mean(loss)
+    
     metric_values = []
     if metric_funcs is not None:
         for metric_func in metric_funcs:
