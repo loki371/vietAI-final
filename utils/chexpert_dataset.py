@@ -115,7 +115,8 @@ class CheXpert_Dataset():
         x = Image.open(self.image_paths[index])
         if self.greyscale:
             x = x.convert('L')
-        
+        else:
+            x = x.convert("RGB")
         if self.size is not None:
             x = x.resize((self.size, self.size))
         

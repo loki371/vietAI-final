@@ -39,7 +39,7 @@ dict_config = (
 if __name__ == '__main__':
     # Get command line argument
     parser = argparse.ArgumentParser(description='Training script for CheXpert')
-    configpath = './configfiles/template_config.ini'    
+    configpath = './configfiles/devTest_config.ini'    
     parser.add_argument('--config-path', '-c', help='Path to config path', default=configpath)
 
     args = parser.parse_args()

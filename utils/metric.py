@@ -20,4 +20,4 @@ def multi_class_F1(y_pred, y_true):
     assert gt_np.shape == pred_np.shape
     for i in range(gt_np.shape[1]):
         f1_out.append(f1_score(gt_np[:,i], pred_np[:,i]))
-    return f1_out
+    return sum(f1_out)/len(f1_out)

@@ -39,10 +39,10 @@ def _choose_optim(dict_config):
 
     return dict_config
 
-def _choose_criterion(dict_config, reduction=None):
+def _choose_criterion(dict_config, reduction='none'):
     print('Only support BCE Loss function now')
     
-    dict_config['criterion'] = BCELoss(weight=dict_config['class_weight'], reduction=None)
+    dict_config['criterion'] = BCELoss(weight=dict_config['class_weight'], reduction=reduction)
     return dict_config
 
 def is_int(s):
