@@ -117,12 +117,13 @@ class CheXpert_Dataset():
             x = x.convert('L')
         else:
             x = x.convert("RGB")
+            
         if self.size is not None:
             x = x.resize((self.size, self.size))
         
         x = self.transform(x)
         
-        y = torch.LongTensor(self.labels[index][0])
+        y = torch.FloatTensor(self.labels[index][0])
         
         masks = torch.FloatTensor(self.labels[index][2])
         return x, y, self.labels[index][1], masks  

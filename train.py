@@ -34,8 +34,6 @@ dict_config = (
     'pretrain'
 )
 
-
-
 if __name__ == '__main__':
     # Get command line argument
     parser = argparse.ArgumentParser(description='Training script for CheXpert')
@@ -82,13 +80,13 @@ if __name__ == '__main__':
         emetric_value = {'F1':0}
         for b in range(len(trainDataloader)):
             bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_class_F1])
-
+            
             eLoss += bLoss 
 
             emetric_value['F1'] += bMetrics[0]
 
             if b % dict_config['train_pfeq'] == 1:
-                print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss / b}')
+                print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss}')
                 print(f"F1: {emetric_value['F1'] / b}")
         
         if e % dict_config['save_checkpoint_feq'] == 0:
