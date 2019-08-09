@@ -25,7 +25,7 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
 
     ### 
     y_pred = model(imgs)
-    loss = criterion(y_pred, labels) * mask
+    loss = criterion(y_pred, labels)
     loss = torch.mean(loss)
     
     metric_values = []
@@ -35,7 +35,7 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
 
     optimizer.zero_grad()
     loss.sum().backward()
-    optimizer.step()train_batch
+    optimizer.step()
 
     return loss.sum().item(), metric_values
 
