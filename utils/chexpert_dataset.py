@@ -58,7 +58,7 @@ class CheXpert_Dataset():
             if mode is 'train':
                 main_label = [r[1][c] for c in class_list]
                 # Handle uncertain
-                mask = np.zeros(len(CLASS_LIST))
+                mask = np.ones(len(CLASS_LIST))
                 for i in range(len(main_label)):
                     if main_label[i] == -1:
                         main_label[i], mask[i] = self.handle_uncertain(handle_uncertain[i])
