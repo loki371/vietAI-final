@@ -83,8 +83,6 @@ if __name__ == '__main__':
             eLoss += bLoss
             emetric_value['F1'] += bMetrics[0]
 
-            print("batch number",b)
-
             if b % dict_config['train_pfeq'] == 1:
                 print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss}')
                 print(f"F1: {emetric_value['F1'] / b}")
