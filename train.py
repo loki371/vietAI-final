@@ -80,8 +80,7 @@ if __name__ == '__main__':
         for b in range(len(trainDataloader)):
             bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_class_F1])
             
-            eLoss += bLoss 
-            print(type(bMetrics[0]))
+            eLoss += bLoss
             emetric_value['F1'] += bMetrics[0]
 
             if b % dict_config['train_pfeq'] == 1:
@@ -93,12 +92,12 @@ if __name__ == '__main__':
         
         val_loss, val_F1  = evaluate(model, valDataloader, criterion, None, dict_config['val_pfeq'])
 
-        if best_F1_score < val_F1:            
+        if best_F1_score > val_F1:            
             print(f'Updated best F1 from {best_F1_score} to {val_F1}')
             torch.save(model.state_dict(), dict_config['bestF1_path'])
             best_F1_score = val_F1
 
-        if best_val_loss > val_loss:
+        if best_val_loss < val_loss:
             print(f"Update best loss from {best_val_loss} to {val_loss}")
             torch.save(model.state_dict(), dict_config['best_valLoss_path'])
             best_val_loss = val_loss
