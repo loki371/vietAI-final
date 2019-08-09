@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
             if b % dict_config['train_pfeq'] == 0:
                 print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss}')
-                print(f"F1: {emetric_value['F1'] / b + int(b==0)}")
+                print(f"F1: {emetric_value['F1'] / (b + int(b==0))}")
         
         if e % dict_config['save_checkpoint_feq'] == 0:
             torch.save(model.state_dict(), dict_config['checkpoint_path'])
