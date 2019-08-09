@@ -1,5 +1,5 @@
 import torch
-
+import numpy as np
 
 def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=None):
     ''' Normal training scheme
@@ -28,13 +28,13 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
     loss = criterion(y_pred, labels) * mask
     loss = torch.mean(loss)
     
-    metric_values = []
-    if metric_funcs is not None:
-        for metric_func in metric_funcs:
-            metric_values.append(metric_func(y_pred, labels))
+    metric_values = np.zeros(17)
+    #if metric_funcs is not None:
+    #    for metric_func in metric_funcs:
+    #        metric_values.append(metric_func(y_pred, labels))
 
     optimizer.zero_grad()
-    loss.sum().backward()
+    loss.backward()
     optimizer.step()
 
     return loss.sum().item(), metric_values
