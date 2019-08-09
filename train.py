@@ -1,5 +1,5 @@
 from utils import CheXpert_Dataset
-from utils.metric import multi_class_F1, multi_label_auroc
+from utils.metric import multi_class_F1
 from utils.evaluate import evaluate
 
 from torch.utils.data import DataLoader
