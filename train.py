@@ -83,7 +83,7 @@ if __name__ == '__main__':
             eLoss += bLoss
             emetric_value['F1'] += bMetrics[0]
 
-            if b % dict_config['train_pfeq'] == 1:
+            if b % dict_config['train_pfeq'] == 0:
                 print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss}')
                 print(f"F1: {emetric_value['F1'] / b}")
         
@@ -101,3 +101,5 @@ if __name__ == '__main__':
             print(f"Update best loss from {best_val_loss} to {val_loss}")
             torch.save(model.state_dict(), dict_config['best_valLoss_path'])
             best_val_loss = val_loss
+        
+        print("Finish epoch", e)
