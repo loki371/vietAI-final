@@ -6,9 +6,8 @@ class ResNet50(_BaseModel):
     def __init__(self, nClass, pretrain=True):
         super(ResNet50, self).__init__(nClass, pretrain)
         resnet = resnet50(pretrain)
-        self.encoder = nn.Sequential(*list(resnet.children())[:-1])
+        self.encoder = nn.Sequential(resnet.features, resnet.avgpool)
 
-        
         self.classify = nn.Sequential(
             nn.Linear(2048, 256),
             nn.ReLU(),

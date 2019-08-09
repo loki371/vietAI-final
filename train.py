@@ -7,6 +7,7 @@ from trainer import train_batch
 from utils.load_config import _choose_model, _choose_optim, _choose_criterion, load_configfile
 
 import torch
+import argparse
 
 dict_config = (
     'train_folder', #
@@ -32,15 +33,22 @@ dict_config = (
     'pretrain'
 )
 
-PATH_CONFIG_FILE = './configfiles/template_config.ini'
-
 if __name__ == '__main__':
+    # Get command line argument
+    parser = argparse.ArgumentParser(description='Training script for CheXpert')
+    configpath = './configfiles/template_config.ini'    
+    parser.add_argument('--config-path', '-c', help='Path to config path', default=configpath)
+
+    args = parser.parse_args()
+    configpath = args.config_path
+
+    # Actual code
     print("---------------load dict_config----------------------------------")
-    dict_config = load_configfile(dict_config, PATH_CONFIG_FILE)
+    dict_config = load_configfile(dict_config, configpath)
     dict_config = _choose_model(dict_config)
     dict_config = _choose_optim(dict_config)
     dict_config = _choose_criterion(dict_config)
-
+    
     # augmentation
     transform_augment = None
 
@@ -71,13 +79,13 @@ if __name__ == '__main__':
         emetric_value = {'F1':0}
         for b in range(len(trainDataloader)):
             bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_class_F1])
-
+            
             eLoss += bLoss 
             print(type(bMetrics[0]))
             emetric_value['F1'] += bMetrics[0]
 
             if b % dict_config['train_pfeq'] == 1:
-                print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss / b}')
+                print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss}')
                 print(f"F1: {emetric_value['F1'] / b}")
         
         if e % dict_config['save_checkpoint_feq'] == 0:

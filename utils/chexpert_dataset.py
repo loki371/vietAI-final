@@ -117,7 +117,7 @@ class CheXpert_Dataset():
             x = x.convert('L')
         else:
             x = x.convert("RGB")
-        
+            
         if self.size is not None:
             x = x.resize((self.size, self.size))
         

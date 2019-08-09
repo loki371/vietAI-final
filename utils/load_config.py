@@ -31,17 +31,17 @@ def _choose_optim(dict_config):
         exit()
 
 
-    if dict_config['optim_name'] == 'Adam':
+    if dict_config['optim_name']=='Adam':
         dict_config['optimizer'] = Adam(dict_config['model'].parameters(), dict_config['lr'])
-    elif dict_config['optim_name'] == 'SGD':
+    elif dict_config['optim_name']=='SGD':
         dict_config['optimizer'] = SGD(dict_config['model'].parameters(), dict_config['lr'])
 
     return dict_config
 
-def _choose_criterion(dict_config):
+def _choose_criterion(dict_config, reduction='none'):
     print('Only support BCE Loss function now')
     
-    dict_config['criterion'] = BCELoss(weight=dict_config['class_weight'])
+    dict_config['criterion'] = BCELoss(weight=dict_config['class_weight'], reduction=reduction)
     return dict_config
 
 def is_int(s):
