@@ -23,6 +23,8 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
 
     imgs, labels, extra_info, mask = train_iter
 
+    imgs = imgs.cuda()
+    labels = labels.cuda()
     ### 
     y_pred = model(imgs)
     loss = criterion(y_pred, labels) * mask

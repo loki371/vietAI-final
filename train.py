@@ -71,6 +71,8 @@ if __name__ == '__main__':
     optimizer = dict_config['optimizer']
     criterion = dict_config['criterion']
 
+    model.cuda()
+
     best_F1_score = 0
     best_val_loss = 10000
     for e in range(dict_config['nepochs']):
