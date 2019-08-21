@@ -9,7 +9,7 @@ class VGG16(_BaseModel):
 
         # change input_num of vgg16
         in_kernel2 = original_mod.features[2].in_channels
-        original_mod.features[0] = nn.Conv2d(in_channels=1, out_channels=in_kernel2, kernel_size = 3)
+        original_mod.features[0] = nn.Conv2d(in_channels=1, out_channels=in_kernel2, kernel_size = 3, padding=1)
         
         self.encoder = nn.Sequential(original_mod.features, original_mod.avgpool)
         
