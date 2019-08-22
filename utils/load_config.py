@@ -15,7 +15,7 @@ ITERAL_LIST = ['class_list']
 FLOAT_LIST = ['lr']
 
 def _choose_model(dict_config):
-    support_list = ('vgg16', 'resnet50')
+    support_list = ('vgg16', 'resnet50', 'effnet')
     if dict_config['model_name'] not in support_list:
         print(f'Not supported {dict_config["model_name"]}')
         print(f'Only support {support_list}')

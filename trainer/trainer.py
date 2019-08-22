@@ -25,6 +25,7 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
 
     imgs = imgs.cuda()
     labels = labels.cuda()
+    mask = mask.cuda()
 
     ### 
     y_pred = model(imgs)
