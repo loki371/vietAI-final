@@ -55,7 +55,7 @@ class CheXpert_Dataset():
         # Load data
         for r in data.iterrows():
             self.image_paths.append(folder + r[1]['Path'])
-            if mode is 'train':
+            if mode in ('train', 'val'): #Known label
                 main_label = [r[1][c] for c in class_list]
                 # Handle uncertain
                 mask = np.ones(len(CLASS_LIST))

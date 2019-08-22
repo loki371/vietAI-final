@@ -11,8 +11,13 @@ from torch.nn import BCELoss
 import configparser
 import ast
 
-ITERAL_LIST = ['class_list']
-FLOAT_LIST = ['lr']
+
+from torchvision import transforms
+from collections import defaultdict
+import torch
+
+ITERAL_LIST = ['class_list', 'translate', 'scale']
+FLOAT_LIST = ['lr', 'p_hflip']
 
 def _choose_model(dict_config):
     support_list = ('vgg16', 'resnet50', 'effnet')
@@ -28,6 +33,15 @@ def _choose_model(dict_config):
         dict_config['model'] = ResNet50(len(dict_config['class_list']), pretrain=dict_config['pretrain'])
     elif dict_config['model_name'] == 'effnet':
         dict_config['model'] = EffNet(len(dict_config['class_list']), mode=dict_config['eff_mode'])
+    
+    if dict_config['md_path']:
+        state = torch.load(dict_config['md_path'])
+        if dict_config['md_key']:
+            dict_config['model'].load_state_dict(state[dict_config['md_key']])
+        else:
+            dict_config['model'].load_state_dict(state)
+
+
     return dict_config
 
 def _choose_optim(dict_config):
@@ -52,6 +66,22 @@ def _choose_criterion(dict_config, reduction='none'):
     dict_config['criterion'] = BCELoss(weight=dict_config['class_weight'], reduction=reduction)
     return dict_config
 
+def _choose_augmentation(dict_config):
+    if not dict_config['use_augmentation']:
+        return None
+    transform = transforms.Compose([
+        transforms.RandomAffine(
+            dict_config['rotate'],
+            dict_config['translate'],
+            dict_config['scale'],
+        ),
+        transforms.RandomHorizontalFlip(dict_config['p_hflip']),
+        transforms.ToTensor()
+    ]
+    )
+    return transform
+
+
 def is_int(s):
     try:
         int(s)
@@ -61,7 +91,7 @@ def is_int(s):
 
 def load_configfile(configList, path_configfile):
     # read file .ini
-    configList = {}
+    configList = defaultdict(lambda: None)
     config = configparser.ConfigParser()
     config.read(path_configfile)
     for topic in config:
@@ -86,7 +116,13 @@ def load_configfile(configList, path_configfile):
             configList[element] = None
             continue
 
+    configList['translate'] = (float(configList['translate']), float(configList['translate']))
+    configList['scale'] = (float(configList['scale'][0]), float(configList['scale'][1]))
+
     return configList
+
+
+
 
 if __name__ == '__main__':
     # debug

@@ -4,7 +4,7 @@ from utils.evaluate import evaluate
 
 from torch.utils.data import DataLoader
 from trainer import train_batch
-from utils.load_config import _choose_model, _choose_optim, _choose_criterion, load_configfile
+from utils.load_config import _choose_model, _choose_optim, _choose_criterion, load_configfile, _choose_augmentation
 
 import torch
 import argparse
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     dict_config = _choose_criterion(dict_config)
     
     # augmentation
-    transform_augment = None
+    transform_augment = _choose_augmentation(dict_config)
 
     print("---------------create Dataset/Dataloader-------------------------")
     trainDataset = CheXpert_Dataset(dict_config['train_folder'], dict_config['train_csv'], mode='train', greyscale=dict_config['greyscale'],
