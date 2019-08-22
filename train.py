@@ -59,7 +59,7 @@ if __name__ == '__main__':
                                     class_list=dict_config['class_list'], size=dict_config['img_size'])
 
     trainDataloader = DataLoader(trainDataset, batch_size=dict_config['batch_size'], shuffle=dict_config['shuffle'],
-                                 num_workers=dict_config['num_workers'])
+                                 num_workers=dict_config['num_workers'], pin_memory=dict_config['pin_memory'])
 
     valDataset = CheXpert_Dataset(dict_config['val_folder'], dict_config['val_csv'], mode='val', greyscale=dict_config['greyscale'],
                                   handle_uncertain=dict_config['handle_uncertain'], transform=None, 
@@ -85,9 +85,9 @@ if __name__ == '__main__':
 
             emetric_value['F1'] += bMetrics[0]
 
-            if b % dict_config['train_pfeq'] == 1:
-                print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss}')
-                print(f"F1: {emetric_value['F1'] / b}")
+            if b % dict_config['train_pfeq'] == 0:
+                print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss / (b + 1)}')
+                print(f"F1: {emetric_value['F1'] / (b + 1)}")
         
         if e % dict_config['save_checkpoint_feq'] == 0:
             torch.save(model.state_dict(), dict_config['checkpoint_path'])
