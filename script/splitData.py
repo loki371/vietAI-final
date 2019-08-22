@@ -3,8 +3,10 @@
 def split_frontal_and_lateral(original_file):
     frontal_lines = []
     lateral_lines = []
+    first_line = None
     with open(original_file) as f:
-        l = '12'
+        first_line = f.readline()
+        l = first_line
         while(len(l) != 0):
             l = f.readline()
             if l.find('Frontal') != -1:
@@ -15,10 +17,13 @@ def split_frontal_and_lateral(original_file):
     ## Get file name
     fname = original_file.split('.')[0]
     with open(fname + '_frontal.csv', 'w') as fout:
+        fout.write(first_line)
         fout.writelines(frontal_lines)
     
     with open(fname + '_lateral.csv', 'w') as fout:
+        fout.write(first_line)
         fout.writelines(lateral_lines)
+        
     print(fname)
     print(f'Frontal: {len(frontal_lines)}')
     print(f'Lateral: {len(lateral_lines)}')

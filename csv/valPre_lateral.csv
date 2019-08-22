@@ -1,3 +1,4 @@
+Path,Sex,Age,Frontal/Lateral,AP/PA,No Finding,Enlarged Cardiomediastinum,Cardiomegaly,Lung Opacity,Lung Lesion,Edema,Consolidation,Pneumonia,Atelectasis,Pneumothorax,Pleural Effusion,Pleural Other,Fracture,Support Devices
 patient00221/study12/view2_lateral.jpg,Female,46,Lateral,0,0.0,-1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
 patient00249/study1/view2_lateral.jpg,Female,61,Lateral,0,0.0,0.0,1.0,1.0,0.0,0.0,-1.0,0.0,-1.0,0.0,0.0,1.0,0.0,0.0
 patient00397/study4/view2_lateral.jpg,Male,70,Lateral,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0
