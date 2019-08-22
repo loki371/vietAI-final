@@ -13,6 +13,9 @@ def evaluate(model, val_dataloader, criterion, log_file=None, print_feq=100):
 
     with torch.no_grad():
         for i, (imgs, labels, extra_info, mask) in enumerate(val_dataloader):
+            imgs = imgs.cuda()
+            labels = labels.cuda()
+            
             y_pred = model(imgs)
             for j in range(len(y_pred)):
                 detail_eval.append({

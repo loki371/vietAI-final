@@ -72,9 +72,14 @@ if __name__ == '__main__':
     optimizer = dict_config['optimizer']
     criterion = dict_config['criterion']
 
+    model.cuda()
+    criterion.cuda()
+
+
     best_F1_score = 0
     best_val_loss = 10000
     for e in range(dict_config['nepochs']):
+        model.train()
         train_iter = iter(trainDataloader)
         eLoss = 0
         emetric_value = {'F1':0}
@@ -90,8 +95,14 @@ if __name__ == '__main__':
                 print(f"F1: {emetric_value['F1'] / (b + 1)}")
         
         if e % dict_config['save_checkpoint_feq'] == 0:
-            torch.save(model.state_dict(), dict_config['checkpoint_path'])
+            checkpoint = {
+                'epochs': e,
+                'dict_config': dict_config,
+                'state_dict': model.state_dict()
+            }
+            torch.save(checkpoint, dict_config['checkpoint_path'])
         
+        model.eval()
         val_loss, val_F1  = evaluate(model, valDataloader, criterion, None, dict_config['val_pfeq'])
 
         if best_F1_score < val_F1:            
