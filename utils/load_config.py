@@ -1,5 +1,11 @@
+import os
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 
-from models import VGG16, ResNet50
+import sys
+sys.path.append(os.path.join(CURRENT_DIR, '../'))
+
+from models import VGG16, ResNet50, EffNet
+
 from torch.optim import Adam, SGD
 from torch.nn import BCELoss
 import configparser
@@ -20,7 +26,8 @@ def _choose_model(dict_config):
         dict_config['model'] = VGG16(len(dict_config['class_list']), pretrain=dict_config['pretrain'])
     elif dict_config['model_name'] == 'resnet50':
         dict_config['model'] = ResNet50(len(dict_config['class_list']), pretrain=dict_config['pretrain'])
-
+    elif dict_config['model_name'] == 'effnet':
+        dict_config['model'] = EffNet(len(dict_config['class_list']), mode=dict_config['eff_mode'])
     return dict_config
 
 def _choose_optim(dict_config):
