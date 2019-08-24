@@ -119,5 +119,10 @@ if __name__ == '__main__':
 
         if best_val_loss > val_loss:
             print(f"Update best loss from {best_val_loss} to {val_loss}")
-            torch.save(model.state_dict(), dict_config['best_valLoss_path'])
+            checkpoint = {
+                          'state_dict': model.state_dict(),
+                          'dict_config': dict(dict_config),
+                          'val_loss': val_loss
+            }
+            torch.save(checkpoint, dict_config['best_valloss_path'])
             best_val_loss = val_loss
