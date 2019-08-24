@@ -65,7 +65,7 @@ if __name__ == '__main__':
                                   handle_uncertain=dict_config['handle_uncertain'], transform=None, 
                                   class_list=dict_config['class_list'], size=dict_config['img_size'])
 
-    valDataloader = DataLoader(valDataset, batch_size=32, shuffle=False, num_workers=dict_config['num_workers'])
+    valDataloader = DataLoader(valDataset, batch_size=32, shuffle=False, num_workers=0)
 
     print("---------------training------------------------------------------")
     model = dict_config['model']
@@ -84,6 +84,7 @@ if __name__ == '__main__':
         eLoss = 0
         emetric_value = {'F1':0}
         for b in range(len(trainDataloader)):
+        #for b in range(0):
             bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_class_F1])
             
             eLoss += bLoss 
@@ -97,20 +98,31 @@ if __name__ == '__main__':
         if e % dict_config['save_checkpoint_feq'] == 0:
             checkpoint = {
                 'epochs': e,
-                'dict_config': dict_config,
+                'dict_config': dict(dict_config),
                 'state_dict': model.state_dict()
             }
             torch.save(checkpoint, dict_config['checkpoint_path'])
         
         model.eval()
         val_loss, val_F1  = evaluate(model, valDataloader, criterion, None, dict_config['val_pfeq'])
-
+        val_loss = 1
+        val_F1 = 1
         if best_F1_score < val_F1:            
             print(f'Updated best F1 from {best_F1_score} to {val_F1}')
-            torch.save(model.state_dict(), dict_config['bestF1_path'])
+            checkpoint = {
+                 'state_dict': model.state_dict(),
+                 'dict_config': dict(dict_config),
+                 'f1_score': val_F1
+            }
+            torch.save(checkpoint, dict_config['bestf1_path'])
             best_F1_score = val_F1
 
         if best_val_loss > val_loss:
             print(f"Update best loss from {best_val_loss} to {val_loss}")
-            torch.save(model.state_dict(), dict_config['best_valLoss_path'])
+            checkpoint = {
+                          'state_dict': model.state_dict(),
+                          'dict_config': dict(dict_config),
+                          'val_loss': val_loss
+            }
+            torch.save(checkpoint, dict_config['best_valloss_path'])
             best_val_loss = val_loss

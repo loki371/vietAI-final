@@ -126,5 +126,7 @@ class CheXpert_Dataset():
         y = torch.FloatTensor(self.labels[index][0])
         
         masks = torch.FloatTensor(self.labels[index][2])
-        return x, y, self.labels[index][1], masks  
-    
+        if self.mode == 'train':
+           return x, y, self.labels[index][1], masks  
+        elif self.mode == 'val':
+           return x, y, 1, masks

@@ -116,7 +116,7 @@ def load_configfile(configList, path_configfile):
             configList[element] = None
             continue
 
-    configList['translate'] = (float(configList['translate']), float(configList['translate']))
+    configList['translate'] = (float(configList['translate'][0]), float(configList['translate'][1]))
     configList['scale'] = (float(configList['scale'][0]), float(configList['scale'][1]))
 
     return configList

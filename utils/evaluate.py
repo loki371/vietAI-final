@@ -29,8 +29,8 @@ def evaluate(model, val_dataloader, criterion, log_file=None, print_feq=100):
             total_loss = criterion(y_pred, labels) * val_batch_size
             c += val_batch_size
 
-        if i % print_feq == 1:
-            print(f'Validation {i} - Loss: {total_loss / c} - F1: {total_f1 / c}')
+            if i % print_feq == 1:
+                print(f'Validation {i} - Loss: {total_loss / c} - F1: {total_f1 / c}')
         
     if log_file is not None:
         json.dump(detail_eval, open(log_file, 'w'))
