@@ -1,5 +1,5 @@
 from utils import CheXpert_Dataset
-from utils.metric import multi_class_F1
+from utils.metric import multi_class_F1, multi_label_auroc
 from utils.evaluate import evaluate
 
 from torch.utils.data import DataLoader
@@ -85,7 +85,7 @@ if __name__ == '__main__':
         emetric_value = {'F1':0}
         for b in range(len(trainDataloader)):
         #for b in range(0):
-            bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_class_F1])
+            bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_label_auroc])
             
             eLoss += bLoss 
 
