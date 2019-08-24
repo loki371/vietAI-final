@@ -37,5 +37,5 @@ def evaluate(model, val_dataloader, criterion, log_file=None, print_feq=100):
     
 
     print(f'END OF VALIDATION:\nLoss:{total_loss / c}\nF1:{total_f1/c}')
-    return total_loss / c, total_f1 / c
+    return torch.mean(total_loss), total_f1 / c
 
