@@ -122,6 +122,8 @@ class CheXpert_Dataset():
             x = x.resize((self.size, self.size))
         
         x = self.transform(x)
+        if self.mode == 'test':
+           return x, 0
         
         y = torch.FloatTensor(self.labels[index][0])
         

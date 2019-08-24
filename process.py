@@ -3,7 +3,8 @@ from torch.utils.data import DataLoader
 import pandas as pd
 from tqdm import tqdm
 
-from utils import load_config, _choose_model
+from utils.load_config import load_configfile as load_config
+from utils.load_config import _choose_model
 from utils import CheXpert_Dataset
 import argparse
 
@@ -35,9 +36,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print('############ LOAD CONFIG FILE ###############')
-    dict_config = load_config(args.config_path)
+    dict_config = load_config(None, args.config_path)
     ## Load model
     dict_config = _choose_model(dict_config)
+    dict_config['model'].cuda()
 
     print('############ LOAD TEST DATA ##############')
     test_dataset = CheXpert_Dataset(dict_config['test_folder'], dict_config['test_csv'],
