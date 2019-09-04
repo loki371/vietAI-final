@@ -85,11 +85,11 @@ if __name__ == '__main__':
         emetric_value = {'F1':0}
         for b in range(len(trainDataloader)):
         #for b in range(0):
-            bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=[multi_label_auroc])
+            bLoss, bMetrics = train_batch(model, optimizer, criterion, train_iter, dict_config, metric_funcs=None)
             
             eLoss += bLoss 
 
-            emetric_value['F1'] += bMetrics[0]
+            #emetric_value['F1'] += bMetrics
 
             if b % dict_config['train_pfeq'] == 0:
                 print(f'Epoch {e} - [{b} / {len(trainDataloader)}]:\nLoss: {eLoss / (b + 1)}')
@@ -102,7 +102,7 @@ if __name__ == '__main__':
                 'state_dict': model.state_dict()
             }
             torch.save(checkpoint, dict_config['checkpoint_path'])
-        
+        '''
         model.eval()
         val_loss, val_F1  = evaluate(model, valDataloader, criterion, None, dict_config['val_pfeq'])
         val_loss = 1
@@ -126,3 +126,4 @@ if __name__ == '__main__':
             }
             torch.save(checkpoint, dict_config['best_valloss_path'])
             best_val_loss = val_loss
+        '''

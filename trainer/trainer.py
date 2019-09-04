@@ -31,11 +31,14 @@ def train_batch(model, optimizer, criterion, train_iter, dict_config, metric_fun
     y_pred = model(imgs)
     loss = criterion(y_pred, labels) * mask
     loss = torch.mean(loss)
-    
+
     metric_values = []
     if metric_funcs is not None:
         for metric_func in metric_funcs:
-            metric_values.append(metric_func(y_pred, labels))
+                # FIX HERE
+                y_pred_ = y_pred.to("cpu").detach().numpy()
+                labels_ = labels.to("cpu").detach().numpy()
+                metric_values.append(metric_func(y_pred_, labels_))
 
     optimizer.zero_grad()
     loss.backward()

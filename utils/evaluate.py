@@ -1,5 +1,5 @@
 import torch
-from .metric import multi_class_F1
+from .metric import multi_class_F1, multi_label_auroc
 import json
 
 def evaluate(model, val_dataloader, criterion, log_file=None, print_feq=100):
@@ -19,14 +19,14 @@ def evaluate(model, val_dataloader, criterion, log_file=None, print_feq=100):
             y_pred = model(imgs)
             for j in range(len(y_pred)):
                 detail_eval.append({
-                    'y_pred': y_pred[j],
-                    'y_label': labels[j],
+                    'y_pred': y_pred[j].to("cpu").numpy(),
+                    'y_label': np.array(labels[j].to("cpu").numpy(), dtype=np.int32),
                     'extra_info': extra_info
                 })
         
             val_batch_size = len(y_pred)
-            total_f1 = multi_class_F1(y_pred, labels) * val_batch_size
-            total_loss = criterion(y_pred, labels) * val_batch_size
+            total_f1 += multi_label_auroc(y_pred, labels) * val_batch_size
+            total_loss += criterion(y_pred, labels) * val_batch_size
             c += val_batch_size
 
             if i % print_feq == 1:
